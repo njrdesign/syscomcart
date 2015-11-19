@@ -27,7 +27,7 @@ class Financeiro extends Model
    }
    public function setFdjAttribute($fdj)
    {
-       $this->attributes['fdj'] = str_ireplace([".",""], [",","."], $fdj);
+       $this->attributes['fdj'] = str_ireplace([".",","], ["","."], $fdj);
    }
    #---------------------FIM
    #---------------------frmp
@@ -50,14 +50,18 @@ class Financeiro extends Model
        $this->attributes['fcrcpn'] = str_ireplace([".",","], ["","."], $fcrcpn);
    }
    #---------------------FIM
-   #---------------------FCRCPN
-   public function getValorAttribute()
-   {
-       return number_format($this->attributes['valor'], 2, ',' ,'.');
-   }
-   public function setValorAttribute($valor)
-   {
-       $this->attributes['valor'] = str_ireplace([".",","], ["","."], $valor);
-   }
+   #---------------------Valor
+   #public function getValorAttribute()
+   #{
+    #   return number_format($this->attributes['valor'], 2, ',' ,'.');
+   #}
+   #public function setValorAttribute($valor)
+   #{
+    #  $this->attributes['valor'] = str_ireplace([".",","], ["","."], $valor);
+   #}
    #---------------------FIM
+   public function tabela()
+   {
+     return $this->hasMany('App\Tabela');
+   }
 }

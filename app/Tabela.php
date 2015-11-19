@@ -50,4 +50,8 @@ class Tabela extends Model
         $this->attributes['fcrcpn'] = str_ireplace([".",","], ["","."], $fcrcpn);
     }
     #---------------------FIM
+    public function financeiro()
+    {
+      return $this->hasMany('App\Financeiro');
+    }
 }

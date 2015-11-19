@@ -60,4 +60,7 @@ Route::get('financeiro/delete/{id}', [
     'as' => 'financeiro.delete', 'uses' => 'FinanceiroController@destroy'
 ]);
 
-
+Route::resource('integra','IntegraController');
+Route::get('integra', [
+    'as' => 'integra', 'uses' => 'IntegraController@index'
+]);

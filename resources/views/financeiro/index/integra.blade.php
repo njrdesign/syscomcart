@@ -27,6 +27,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+
     <![endif]-->
 </head>
 <body class="skin-blue">
@@ -43,7 +44,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-                {{ $page_title or "Financeiro" }}
+                {{ $page_title or "Entradas" }}
                 <small>{{ $page_description or null }}</small>
             </h1>
             <!-- You can dynamically generate breadcrumbs here -->
@@ -51,57 +52,50 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
         <!-- Main content -->
         <section class="content">
-
             <div class="box box-success">
                 <div class="box-header with-border">
-                    <h3 class="box-title">
-                        <a class="btn btn-primary" role="button" href="{{ URL::route('financeiro.create') }}" aria-expanded="false">Adicionar Entradas</a>
-                        <a class="btn btn-primary" role="button" href="{{ URL::route('financeiro.create') }}" aria-expanded="false">Adicionar Saídas</a>
-                    </h3>
+                    <h3 class="box-title">Adicionar Entrada</h3><br>
+
                 </div>
+                {!! Form::open(['method' => 'POST', 'route' => 'integra.store', 'class' => 'form-horizontal']) !!}
+
                 <div class="box-body">
-                    <table class="table table-hover">
-                        <thead>
-                        <tr>
-                            <th class="col-sm-1">#</th>
-                            <th class="col-xl-1">Código</th>
-                            <th class="col-xl-2">Data</th>
-                            <th class="col-xl-2">Atribuição</th>
-                            <th class="col-sm-1">C/D</th>
-                            <th class="col-sm-1">Valor</th>
-                            <th class="col-sm-2">Ações</th>
-                        </tr>
-                        </thead>
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="form-group @if($errors->first('codigo')) has-error @endif">
+                                    {!! Form::label('codigo', 'Código:') !!}
+                                    {!! Form::number('codigo', null, ['class' => 'form-control', 'required' => 'required']) !!}
+                                    <small class="text-danger">{{ $errors->first('codigo') }}</small>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                              <div class="form-group">
+                                  {!! Form::label('quant', 'Quant.:') !!}
+                                  {!! Form::number('quant', null, ['class' => 'form-control', 'required' => 'required']) !!}
+                                  <small class="text-danger">{{ $errors->first('quant') }}</small>
+                              </div>
+                            </div>
+                            <div class="col-sm-4">
+                              <div class="form-group">
+                                  {!! Form::label('dataEmissao', 'Data:') !!}
+                                  {!! Form::date('dataEmissao', \Carbon\Carbon::now(), ['class' => 'form-control', 'required' => 'required'], null) !!}
+                                  <small class="text-danger">{{ $errors->first('dataEmissao') }}</small>
+                              </div>
+                            </div>
 
-                        <tbody>
-                        @foreach($financeiros as $financeiro)
-
-                            <tr title="{{ $financeiro->descricao }}">
-
-                                <td>{{ $financeiro->id }}</td>
-                                <td>{{ $financeiro->codigo }}</td>
-                                <td>{{ $financeiro->dataEmissao }}</td>
-                                <td>{{ $financeiro->atribuicao }}</td>
-                                <td>{{ $financeiro->tipo }}</td>
-                                <td>{{ $financeiro->valor }}</td>
-                                <td>
-                                    <div class="btn-group">
-                                        <a class="btn btn-primary glyphicon glyphicon-pencil" role="button" href="{{ URL::route('financeiro.edit', $financeiro->id) }}"></a>
-                                        <a class="btn btn-danger glyphicon glyphicon-minus" role="button" href="{{ URL::route('financeiro.delete', $financeiro->id) }}"></a>
-                                    </div>
-                                </td>
-                            </tr>
-
-                        @endforeach
-                        </tbody>
-                    </table>
+                        </div>
+                      </div>
+                    <!-- /.box-body -->
                 </div>
                 <div class="box-footer">
-                    <div class="text-center">
-                        {!! $financeiros->render() !!}
+                    <a class="btn btn-danger" role="button" href="{{ URL::route('financeiro') }}" aria-expanded="false">Cancelar</a>
+                    <div class="btn-group pull-right">
+
+                        {!! Form::submit("Avançar", ['class' => 'btn btn-success']) !!}
                     </div>
+                    {!! Form::close() !!}
                 </div>
-            </div>
             @yield('content')
         </section><!-- /.content -->
     </div><!-- /.content-wrapper -->
@@ -124,4 +118,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
       Both of these plugins are recommended to enhance the
       user experience -->
 </body>
+<script src="http://plentz.github.io/jquery-maskmoney/javascripts/jquery.maskMoney.min.js" type="text/javascript"></script>
+<script>
+    $(function() {
+        $("#emolumentos").maskMoney();
+        $("#fdj").maskMoney();
+        $("#frmp").maskMoney();
+        $("#fcrcpn").maskMoney();
+        $("#valor").maskMoney();
+    })
+
+
+</script>
 </html>

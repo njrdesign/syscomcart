@@ -138,11 +138,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                               </div>
                             </div>
                             <div class="col-sm-4">
-                                <div class="form-group @if($errors->first('valor')) has-error @endif">
-                                    {!! Form::label('valor', 'Valor Total(R$):') !!}
-                                    {!! Form::text('valor', null, ['class' => 'form-control', 'required' => 'required', 'data-thousands' => '.', 'data-decimal' => ',']) !!}
-                                    <small class="text-danger">{{ $errors->first('valor') }}</small>
-                                </div>
+                                
                             </div>
                         </div>
                         <div class="row">

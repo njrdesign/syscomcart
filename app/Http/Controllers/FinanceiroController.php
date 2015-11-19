@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Financeiro;
+use App\Tabela;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -14,17 +15,21 @@ use Input;
 class FinanceiroController extends Controller
 {
     private $financeiro;
+    private $tabela;
 
-    public function __construct(Financeiro $financeiro)
+    public function __construct(Financeiro $financeiro, Tabela $tabela)
     {
         $this->middleware('guest');
 
         $this->financeiro = $financeiro;
+        $this->TabelaModel = $tabela;
     }
+
     public function index()
     {
+        $tabela = $this->TabelaModel->lists('codigo', 'descricao', 'atribuicao', 'emolumentos', 'fdj', 'frmp', 'fcrcpn');
         $financeiros = Financeiro::orderBy('id', "DESC")->paginate(10);
-        return view('financeiro.index', compact('financeiros'));
+        return view('financeiro.index', compact('financeiros', 'tabelas'));
     }
 
     /**
@@ -54,10 +59,22 @@ class FinanceiroController extends Controller
       $fcrcpn = $request->get('fcrcpn');
       $fcrcpn_n = str_ireplace([".",","], ["","."], $fcrcpn);
       $valortotal = collect([$emolumentos_n, $fdj_n, $frmp_n, $fcrcpn_n])->sum();
-      dd($emolumentos_n, $fdj_n, $frmp_n, $fcrcpn_n, $valortotal);
+      #dd($emolumentos_n, $fdj_n, $frmp_n, $fcrcpn_n, $valortotal);
       $limite = $request->get('quant');
       for ($n = 1; $n <= $limite; $n++) {
-      $financeiros = Financeiro::create(Input::all());
+      #$financeiros = Financeiro::create(Input::all());
+      Financeiro::create([
+        'codigo' => $request->get('codigo'),
+        'descricao' => $request->get('descricao'),
+        'dataEmissao' => $request->get('dataEmissao'),
+        'atribuicao' => $request->get('atribuicao'),
+        'emolumentos' => $request->get('emolumentos'),
+        'fdj' => $request->get('fdj'),
+        'frmp' => $request->get('frmp'),
+        'fcrcpn' => $request->get('fcrcpn'),
+        'valor' => $valortotal,
+        'tipo' => '0'
+      ]);
       }
       return redirect()->route('financeiro');
     }
@@ -121,4 +138,11 @@ class FinanceiroController extends Controller
     {
         //
     }
+    public function getTabelas($codigoFinanceiro)
+        {
+            $tabela = $this->estadoModel->find($codigoTabela);
+            $financeiros = $financeiro->tabelas()->getQuery()->get(['codigo', 'descricao', 'atribuicao', 'emolumentos', 'fdj', 'frmp', 'fcrcpn']);
+            return Response::json($financeiros);
+        }
+
 }

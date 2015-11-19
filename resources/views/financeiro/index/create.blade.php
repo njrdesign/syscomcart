@@ -110,14 +110,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             <div class="col-sm-4">
                                 <div class="form-group @if($errors->first('emolumentos')) has-error @endif">
                                     {!! Form::label('emolumentos', 'Emolumentos(R$):') !!}
-                                    {!! Form::text('emolumentos', null, ['class' => 'form-control soma', 'required' => 'required', 'data-thousands' => '.', 'data-decimal' => ',']) !!}
+                                    {!! Form::text('emolumentos', null, ['class' => 'form-control soma', 'data-thousands' => '.', 'data-decimal' => ',']) !!}
                                     <small class="text-danger">{{ $errors->first('emolumentos') }}</small>
                                 </div>
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-group @if($errors->first('fdj')) has-error @endif">
                                     {!! Form::label('fdj', 'FDJ(R$):') !!}
-                                    {!! Form::text('fdj', null, ['class' => 'form-control soma', 'required' => 'required', 'data-thousands' => '.', 'data-decimal' => ',']) !!}
+                                    {!! Form::text('fdj', null, ['class' => 'form-control soma', 'data-thousands' => '.', 'data-decimal' => ',']) !!}
                                     <small class="text-danger">{{ $errors->first('fdj') }}</small>
                                 </div>
                             </div>
@@ -126,23 +126,19 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             <div class="col-sm-4">
                                 <div class="form-group @if($errors->first('frmp')) has-error @endif">
                                     {!! Form::label('frmp', 'FRMP(R$):') !!}
-                                    {!! Form::text('frmp', null, ['class' => 'form-control soma', 'required' => 'required', 'data-thousands' => '.', 'data-decimal' => ',']) !!}
+                                    {!! Form::text('frmp', null, ['class' => 'form-control soma', 'data-thousands' => '.', 'data-decimal' => ',']) !!}
                                     <small class="text-danger">{{ $errors->first('frmp') }}</small>
                                 </div>
                             </div>
                             <div class="col-sm-4">
                               <div class="form-group @if($errors->first('fcrcpn')) has-error @endif">
                                   {!! Form::label('fcrcpn', 'FCRCPN(R$):') !!}
-                                  {!! Form::text('fcrcpn', null, ['class' => 'form-control soma', 'required' => 'required', 'data-thousands' => '.', 'data-decimal' => ',']) !!}
+                                  {!! Form::text('fcrcpn', null, ['class' => 'form-control soma', 'data-thousands' => '.', 'data-decimal' => ',']) !!}
                                   <small class="text-danger">{{ $errors->first('fcrcpn') }}</small>
                               </div>
                             </div>
                             <div class="col-sm-4">
-                                <div class="form-group @if($errors->first('valor')) has-error @endif">
-                                    {!! Form::label('valor', 'Valor Total(R$):') !!}
-                                    {!! Form::text('valor', null, ['class' => 'form-control', 'required' => 'required', 'data-thousands' => '.', 'data-decimal' => ',']) !!}
-                                    <small class="text-danger">{{ $errors->first('valor') }}</small>
-                                </div>
+
                             </div>
                         </div>
 
