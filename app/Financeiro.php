@@ -62,6 +62,6 @@ class Financeiro extends Model
    #---------------------FIM
    public function tabela()
    {
-     return $this->hasMany('App\Tabela');
+     return $this->belongsTo('App\Tabela');
    }
 }

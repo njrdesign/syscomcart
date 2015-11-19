@@ -188,4 +188,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 
 </script>
+<script type="text/javascript">
+        $('number[name=codigo]').change(function () {
+            var idEstado = $(this).val();
+            $.get('/get-financeiros/' + codigoTabela, function (financeiros) {
+                $('textarea[name=descricao]').empty();
+                $.each(financeiros, function (key, value) {
+                    $('textarea[name=descricao]').append('<textarea value=' + value.id + '>' + value.descricao + '</textarea>');
+                });
+            });
+        });
+    </script>
 </html>

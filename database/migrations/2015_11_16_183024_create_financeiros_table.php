@@ -15,7 +15,7 @@ class CreateFinanceirosTable extends Migration
         Schema::create('financeiros', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('codigo')->unsigned()->default(0);
-            $table->foreign('codigo')->references('id')->on('estados');
+            $table->foreign('codigo')->references('id')->on('tabelas');
             $table->longText('descricao');
             $table->date('dataEmissao');
             $table->string('atribuicao');

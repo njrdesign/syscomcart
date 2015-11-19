@@ -10,12 +10,13 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Input;
+use Illuminate\Support\Facades\Response;
 
 
 class FinanceiroController extends Controller
 {
     private $financeiro;
-    private $tabela;
+    private $tabelaModel;
 
     public function __construct(Financeiro $financeiro, Tabela $tabela)
     {
@@ -27,7 +28,7 @@ class FinanceiroController extends Controller
 
     public function index()
     {
-        $tabela = $this->TabelaModel->lists('codigo', 'descricao', 'atribuicao', 'emolumentos', 'fdj', 'frmp', 'fcrcpn');
+        $tabelas = $this->TabelaModel->lists('codigo', 'descricao', 'atribuicao', 'emolumentos', 'fdj', 'frmp', 'fcrcpn');
         $financeiros = Financeiro::orderBy('id', "DESC")->paginate(10);
         return view('financeiro.index', compact('financeiros', 'tabelas'));
     }
@@ -138,10 +139,10 @@ class FinanceiroController extends Controller
     {
         //
     }
-    public function getTabelas($codigoFinanceiro)
+    public function getFinanceiros($codigoTabela)
         {
-            $tabela = $this->estadoModel->find($codigoTabela);
-            $financeiros = $financeiro->tabelas()->getQuery()->get(['codigo', 'descricao', 'atribuicao', 'emolumentos', 'fdj', 'frmp', 'fcrcpn']);
+            $tabela = $this->TabelaModel->find($codigoTabela);
+            $financeiros = $tabela->financeiros()->getQuery()->get(['codigo', 'descricao', 'atribuicao', 'emolumentos', 'fdj', 'frmp', 'fcrcpn']);
             return Response::json($financeiros);
         }
 

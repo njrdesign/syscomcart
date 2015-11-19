@@ -10,6 +10,7 @@ class Tabela extends Model
    use SoftDeletes;
     protected $dates = ['deleted_at'];
     protected $guarded = [];
+    protected $fillable = ['descricao'];
     #---------------------Emolumentos
 		public function getEmolumentosAttribute()
     {

@@ -64,3 +64,4 @@ Route::resource('integra','IntegraController');
 Route::get('integra', [
     'as' => 'integra', 'uses' => 'IntegraController@index'
 ]);
+Route::get('get-financeiros/{codigoTabela}', 'FinanceiroController@getFinanceiros');
