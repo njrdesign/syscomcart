@@ -45,12 +45,13 @@ class FinanceiroController extends Controller
      */
     public function store(Request $request)
     {
-      $emolumentos = $request->get('emolumentos');
-      $fdj = $request->get(number_format(['fdj'], 2, ',' ,'.'));
+      #$emolumentos = $request->get('emolumentos');
+      $fdj = $request->get('fdj');
+      $fdj_n = number_format($fdj, 2, ',' ,'.');
       $frmp = $request->get('frmp');
       $fcrcpn = $request->get('fcrcpn');
       $valortotal = collect($emolumentos, $fdj, $frmp, $fcrcpn)->sum();
-        dd(str_ireplace([".",""], [",","."], $valortotal));
+      dd($fdj_n);
       $limite = $request->get('quant');
       for ($n = 1; $n <= $limite; $n++) {
       $financeiros = Financeiro::create(Input::all());
